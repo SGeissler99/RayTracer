@@ -1,0 +1,161 @@
+#include "pch.h"
+#include "ScopedTimer.h"
+
+// use breakpoints, step into, step over, step out + disassembly
+
+// pointer is an address
+// ampersand gets the address of a variable (memory address of)
+// asterisk dereferences the pointer to access the actual memory (value of address)
+
+// char* buffer = new char[8];
+// ^- allocates 8 chars (8*1 byte) of memory, returns pointer to the beginning of the allocated block of memory
+// the memset function takes a pointer (address), a value to be set, and the amount of bytes the value should be set to
+// for example, if 4 bytes then the first 4 bytes of memory, starting with the pointer, will be set to the value
+// by allocating memory using the new keyword, you allocate it on the heap instead of on the stack
+
+// references are pointers in disguise
+// references reference an already existing variable, unlike pointers
+// int& (=ref) int* (=pointer)
+// references are an alias of the variable it references to
+
+// [type]* => declare pointer
+// [type]& => declare reference
+// &[var] => get address of variable (address of)
+// *[var] => get value of the address (dereference)
+
+// static outside of class -> only linked internally (within translation unit), a sort of private function
+// extern [type][var] -> external linkage
+
+// static inside of class or function
+// only once instance of that variable (shared across all instances of that class or function)
+// static variables/method can be accessed without an instance
+// static methods cannot access non-static variables, because it has no instance of a class
+
+// the declaration of an array is the same as using a pointer, but will be allocated to the stack
+// count on stack: sizeof(array) / sizeof(type)
+// C++ 11 introduces std::array ==> std::array<[type], [count]> [var]
+
+// [type] const * [var] ==> can change address but not value at address
+// [type] * const [var] ==> cannot change address but can change value at address
+// const [type] * const [var] ==> cannot change address and cannot change value at address
+// Getter functions should be decorated with const since no member variables should be modified
+// So const [type] * const [func] const returns a non-modifiable pointer and
+// no member variables should be modified in the function
+
+// The mutable keyword indicates that a variables value can always be changes (reverse of const)
+// this allows const methods to still change variables, but only ones that have been declared as mutable
+
+// the new keyword allocates memory on the heap => new([address]) [type]([params])
+// both the address and parameters are optional
+
+// the explicit keyword in front of the constructor disables implicit conversions, you must explicitly convert types
+
+// [return_type] operator[operator_symbol]([params])
+// only overload operators when it is logical
+// to overload << for printing:
+// std::ostream& operator<<(std::ostream& stream, const [type]& other)
+// stream << ...;
+// return stream;
+
+// std::unique_ptr<[type]> [var] = std::make_unique<[type]>([params])
+// smart pointer is a wrapper around a default pointer, this allows you to never use new / delete
+// the unique pointer cannot be shared / reassigned
+
+// std::shared_ptr<[type]> [var] = std::make_shared<[type]>([params])
+// std::shared_ptr<[type]> [var2] = [var]
+// the shared pointer keeps track of reference count, if this hits 0, the memory is freed
+
+// std::weak_ptr<[type]> [var3] = [var]
+// the weak pointer is also a shared pointer, except it does not increase the ref count
+// very useful for code that does not need to keep whatever it points to alive
+ 
+// the friend keyword allows the function access to private members of a class
+// to do this, the function needs to be declared inside the class with the friend keyword in front of it
+
+// shallow vs deep copy
+// shallow copy is when member variables are copied not the underlying blocks of memory, which explains
+// why shallow copies do not work with pointers
+// a deep copy also copies the blocks of memory, thus the entire object
+// to deep copy, you create a copy constructor and define how to deep copy this class yourself
+// [type](const [type]& [var]) : [initializer_list]
+
+// int offset = (int)&(([type]*)nullptr)->[var3];
+
+// using vectors: use .reserve(int) to set capacity of the vector
+// use .emplace_back(obj) to avoid copying from current scope stack into the vector
+
+// template<typename T>
+// use when the only difference between function is the parameter type
+// Print<int>, Print<float>, Print<std::string> etc.
+// templates can also be used in classes
+
+// use typedef, using, or auto to shorten lengthy type declarations
+// using [new_type] = [old_type]
+// typedef [old_type] [new_type]
+
+// function pointers can be created by assigning a function to a variable
+// typedef [return_type](*[type_name])([param1],[param2]);
+// [type_name] [var] = [function_name];
+// or std::function<[return_type]([param1], [param2])> [var] = [function_name]
+
+// lambda functions are anonymous
+// [[captures]]([params]) { [body] }
+// for captures [=] -> pass all by value, [&] -> pass all by reference
+// [[var]] -> pass var by value, [&[var]] -> pass var by reference
+
+// to create threads we use std::thread [var]([func]);
+// .join joins the thread with the main thread, so it blocks the
+// main thread until our thread is finished
+// to make a thread sleep use std::this_thread::sleep_for(1s);
+// to use literals as time units -> using namespace std::literals:chrono_literals
+
+// polymorphism in C++ requires some additional thinking (B : public A)
+// A* [var] = new B();
+// delete [var];
+// will not call B's destructor which can lead to memory leaks
+// to fix this, you need to declare A's destructor to be virtual
+
+// type casting in C++
+// static_cast<[type]>([var]) -> type conversion using combination of implicit and user-defined conversions
+// dynamic_cast<[type]>([var]) -> safe conversion of pointers and references along the inheritance hierarchy
+// which can return null if the conversion fails
+// reinterpret_cast<[type]>([var]) -> reinterprets memory as the new type (type punning)
+// const_cast<[type]>([var]) -> casts away the const from any variable
+
+// to return multiple types into one variable you can wrap them into a struct or use structured bindings
+// for example we have tuple ("Hello", 5)
+// struct [struct_name] { string word; int length; }
+// [struct_name] [var] = {"Hello", 5}
+// auto[word, length] = {"Hello", 5}
+// structered bindings are preferred if you do not use the struct in multiple places throughout the code
+
+// to represent data that might not be present we can use std::optional<[type]> [var]
+// to check if the optional has a value use if([var]) or [var].has_value()
+// to get the value use [var].value() or [var].value_or([value if empty])
+
+// to represent a variable that might have different types we can use std::variant<[type1], [type2]> [var]
+// to get the value from the variant use std::get<[type]([var])
+// or std::get_if<[type]>(&[var]), this returns nullptr if var is not of the type
+
+// to represent a variable that can be any type we can use std::any [var]
+// to get the value from the any, we use std::any_cast<[type]([var]), will throw exception if wrong type
+
+// to execute functions asynchronously we can use std::async([launch_arg], [function], [param1], [param2])
+// the function that is passed into the async is recommended to have its parameters be copyable (no refs)
+// you can use refs but you need to pass them via std::ref()
+// if the body of the functions wants access to a resource, such as add something to a vector
+// we need to lock it using a mutex lock -> static std::mutex [var]
+// to lock -> std::lock_guard<std::mutex> [lock_var]([var])
+// lock_guard is a scoped lock which unlocks at the end of the scope
+// the async function returns a std::future<[function_return]> possibly containing the return value of the function
+
+// to avoid allocations related to string operations, we can use std::string_view
+// this provides us with the pointer to the original string plus a size
+// const char* name = "Stephan Geissler";
+// std::string_view firstName(name, 7); -> "Stephan"
+// std::string_view lastName(name + 8, 8); -> "Geissler"
+// a string_view does not cause any allocations
+
+int main() {
+	std::cin.get();
+}
