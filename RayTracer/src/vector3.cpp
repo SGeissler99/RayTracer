@@ -101,6 +101,14 @@ vector3& vector3::operator/= (const float& scalar) {
 	return *this;
 }
 
+bool vector3::operator== (const vector3& other) const {
+	return x == other.x && y == other.y && z == other.z;
+}
+
+bool vector3::operator!= (const vector3& other) const {
+	return x != other.x || y != other.y || z != other.z;
+}
+
 float vector3::operator[] (int index) const {
 	switch (index) {
 	case 0:
@@ -134,6 +142,10 @@ float vector3::dot(const vector3& other) const {
 	return x * other.x + y * other.y + z * other.z;
 }
 
+float vector3::angle_between(const vector3& other) const {
+	return acosf(dot(other) / (length() * other.length()));
+}
+
 vector3 vector3::cross(const vector3& other) const {
 	return vector3(
 		y * other.z - z * other.y,
@@ -144,6 +156,10 @@ vector3 vector3::cross(const vector3& other) const {
 
 float vector3::length() const {
 	return sqrtf(x * x + y * y + z * z);
+}
+
+float vector3::squared_length() const {
+	return x * x + y * y + z * z;
 }
 
 vector3& vector3::normalize() {

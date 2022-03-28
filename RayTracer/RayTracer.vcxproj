@@ -167,6 +167,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\image.cpp" />
+    <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\ScopedTimer.cpp" />
     <ClCompile Include="src\random.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -186,6 +189,9 @@
     <ClCompile Include="src\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\image.h" />
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\ScopedTimer.h" />
     <ClInclude Include="src\random.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\vector3.h" />

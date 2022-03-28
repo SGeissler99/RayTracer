@@ -39,4 +39,16 @@ namespace vector_math {
 	vector3 normalized(const vector3& vec) {
 		return vec / vec.length();
 	}
+
+	float angle_between(const vector3& first, const vector3& second) {
+		return acosf(dot(first, second) / (first.length() * second.length()));
+	}
+
+	float length(const vector3& vec) {
+		return sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+	}
+
+	float squared_length(const vector3& vec) {
+		return vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
+	}
 }

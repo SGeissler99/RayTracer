@@ -26,6 +26,9 @@ struct vector3
 	vector3& operator/= (const vector3& other);
 	vector3& operator/= (const float& scalar);
 
+	bool operator== (const vector3& other) const;
+	bool operator!= (const vector3& other) const;
+
 	float operator[] (int index) const;
 
 	static float clamp(const float& value, const float& minVal, const float& maxVal);
@@ -33,9 +36,11 @@ struct vector3
 	void clamp(const vector3& minVal, const vector3& maxVal);
 
 	float dot(const vector3& other) const;
+	float angle_between(const vector3& other) const;
 	vector3 cross(const vector3& other) const;
 
 	float length() const;
+	float squared_length() const;
 	vector3& normalize();
 };
 
