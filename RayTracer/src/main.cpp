@@ -4,6 +4,8 @@
 #include "ScopedTimer.h"
 #include "camera.h"
 #include "image.h"
+#include "ray.h"
+#include "sphere.h"
 
 constexpr int IMG_WIDTH = 800;
 constexpr int IMG_HEIGHT = 800;
@@ -15,8 +17,19 @@ std::ostream& operator<<(std::ostream& stream, const vector3& other) {
 	return stream;
 }
 
+vector3 trace(const ray& r, const std::vector<sphere*>& spheres, const std::vector<sphere*> lights,
+	const int& index, const int& depth) 
+{
+	vector3 ray_color(0.f);
+
+	if (depth <= 0 || index == -1)
+		return ray_color;
+
+	return ray_color;
+}
+
+
 int main() {
-	// TODO: Define Copy constructor for vector3
 	camera cam(vector3(0, 0, 0), vector3(0, 0, 1), 1.f);
 	image img(cam.get_screen_center());
 	
@@ -25,7 +38,7 @@ int main() {
 		for (int x = 0; x < IMG_WIDTH; ++x) {
 			for (int y = 0; y < IMG_HEIGHT; ++y) {
 				vector3 pixel_color(0.f);
-				vector3 ray_direction = (img.pixel_location(x, y) - cam.get_position()).normalize();
+				ray r(cam.get_position(), (img.pixel_location(x, y) - cam.get_position()).normalize());
 			}
 		}
 	}
