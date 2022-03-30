@@ -18,7 +18,7 @@ bool sphere::intersect_ray(ray& r) const {
 
 	t -= sqrtf(m_Radius - p2);
 
-	if ((t < r.Distance) && t > epsilon) {
+	if ((t < r.Distance) && t > Epsilon) {
 		r.Distance = t;
 		return true;
 	}

@@ -26,3 +26,7 @@ vector3 ray::get_origin() const {
 vector3 ray::get_direction() const {
 	return m_Direction;
 }
+
+vector3 ray::get_intersection() const {
+	return m_Origin + m_Direction * Distance;
+}

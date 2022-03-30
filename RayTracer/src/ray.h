@@ -12,6 +12,7 @@ public:
 
 	vector3 get_origin() const;
 	vector3 get_direction() const;
+	vector3 get_intersection() const;
 
 	float Distance;
 
