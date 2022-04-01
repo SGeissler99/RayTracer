@@ -2,22 +2,24 @@
 #include "vector3.h"
 #include "sphere.h"
 
-class sphere;
+class Sphere;
 
-class ray
+class Ray
 {
 public:
-	ray(vector3 origin, vector3 direction);
-	int nearest_intersection(const std::vector<sphere*>& spheres);
+	Ray(const Vector3& origin, const Vector3& direction);
+	int GetNearestIntersection(std::span<Sphere* const> spheres);
 
-	vector3 get_origin() const;
-	vector3 get_direction() const;
-	vector3 get_intersection() const;
-
-	float Distance;
+	Vector3 GetOrigin() const;
+	Vector3 GetDirection() const;
+	Vector3 GetIntersectionPoint() const;
+	float GetDistance() const;
+	Ray& SetDistance(const float& distance);
 
 private:
-	ray();
+	Ray();
 
-	vector3 m_Origin, m_Direction;
+	Vector3 m_Origin;
+	Vector3 m_Direction;
+	float m_Distance = FLT_MAX;
 };

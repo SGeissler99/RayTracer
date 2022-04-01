@@ -3,52 +3,52 @@
 #include "vector3.h"
 
 namespace vector_math {
-	vector3 clamp(const vector3& vec, const float& minVal, const float& maxVal)
+	Vector3 Clamp(const Vector3& vec, const float& minVal, const float& maxVal)
 	{
-		return vector3(
-			vector3::clamp(vec.x, minVal, maxVal),
-			vector3::clamp(vec.y, minVal, maxVal),
-			vector3::clamp(vec.z, minVal, maxVal)
+		return Vector3(
+			Vector3::Clamp(vec.x, minVal, maxVal),
+			Vector3::Clamp(vec.y, minVal, maxVal),
+			Vector3::Clamp(vec.z, minVal, maxVal)
 		);
 	}
 
-	vector3 clamp(const vector3& vec, const vector3& minVal, const vector3& maxVal) {
-		return vector3(
-			vector3::clamp(vec.x, minVal.x, maxVal.x),
-			vector3::clamp(vec.y, minVal.y, maxVal.y),
-			vector3::clamp(vec.z, minVal.z, maxVal.z)
+	Vector3 Clamp(const Vector3& vec, const Vector3& minVal, const Vector3& maxVal) {
+		return Vector3(
+			Vector3::Clamp(vec.x, minVal.x, maxVal.x),
+			Vector3::Clamp(vec.y, minVal.y, maxVal.y),
+			Vector3::Clamp(vec.z, minVal.z, maxVal.z)
 		);
 	}
 
-	float dot(const vector3& first, const vector3& second) {
+	float Dot(const Vector3& first, const Vector3& second) {
 		return first.x * second.x + first.y * second.y + first.z * second.z;
 	}
 
-	vector3 cross(const vector3& first, const vector3& second) {
-		return vector3(
+	Vector3 Cross(const Vector3& first, const Vector3& second) {
+		return Vector3(
 			first.y * second.z - first.z * second.y,
 			first.z * second.x - first.x * second.z,
 			first.x * second.y - first.y * second.x
 		);
 	}
 
-	vector3 reflect(const vector3& incoming, const vector3& normal) {		
-		return incoming - 2.f * normal * normal.dot(incoming);
+	Vector3 Reflect(const Vector3& incoming, const Vector3& normal) {		
+		return incoming - 2.f * normal * normal.Dot(incoming);
 	}
 
-	vector3 normalized(const vector3& vec) {
-		return vec / vec.length();
+	Vector3 Normalized(const Vector3& vec) {
+		return vec / vec.Length();
 	}
 
-	float angle_between(const vector3& first, const vector3& second) {
-		return acosf(dot(first, second) / (first.length() * second.length()));
+	float AngleBetween(const Vector3& first, const Vector3& second) {
+		return acosf(Dot(first, second) / (first.Length() * second.Length()));
 	}
 
-	float length(const vector3& vec) {
+	float Length(const Vector3& vec) {
 		return sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 	}
 
-	float squared_length(const vector3& vec) {
+	float SquaredLength(const Vector3& vec) {
 		return vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
 	}
 }

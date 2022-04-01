@@ -1,19 +1,20 @@
 #include "pch.h"
 #include "ScopedTimer.h"
 
-ScopedTimer::ScopedTimer(const char* name) {
+ScopedTimer::ScopedTimer(const char* name) 
+	: m_Name(name)
+{
 	m_StartTimepoint = std::chrono::high_resolution_clock::now();
-	m_Name = name;
 }
 
 ScopedTimer::~ScopedTimer() {
 	Stop();
 }
 
-void ScopedTimer::Stop() {
+void ScopedTimer::Stop() const {
 	std::chrono::time_point<std::chrono::high_resolution_clock> endTimepoint = std::chrono::high_resolution_clock::now();
 
-	int64_t duration = std::chrono::duration_cast<std::chrono::microseconds>(endTimepoint - m_StartTimepoint).count();
+	auto duration = (double)(std::chrono::duration_cast<std::chrono::microseconds>(endTimepoint - m_StartTimepoint).count());
 
 	double ms = duration * 0.001;
 

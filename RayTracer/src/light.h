@@ -1,18 +1,19 @@
 #pragma once
 #include "vector3.h"
 
-class light
+class Light
 {
 public:
-	light(vector3 position, vector3 color, float intensity);
+	Light(const Vector3& position, const Vector3& color, const float& intensity);
 
-	float get_intensity() const;
-	vector3 get_position() const;
-	vector3 get_color() const;
+	float GetIntensity() const;
+	Vector3 GetPosition() const;
+	Vector3 GetColor() const;
 
 private:
-	light();
+	Light();
 
-	vector3 m_Position, m_Color;
+	Vector3 m_Position;
+	Vector3 m_Color;
 	float m_Intensity;
 };

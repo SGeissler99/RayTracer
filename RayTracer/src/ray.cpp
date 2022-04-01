@@ -2,31 +2,39 @@
 #include "ray.h"
 #include <limits>
 
-ray::ray(vector3 origin, vector3 direction) 
+Ray::Ray(const Vector3& origin, const Vector3& direction) 
 	: m_Origin(origin), m_Direction(direction)
 {
-	Distance = FLT_MAX;
 }
 
-int ray::nearest_intersection(const std::vector<sphere*>& spheres) {
+int Ray::GetNearestIntersection(std::span<Sphere* const> spheres)  {
 	int hit_index = -1;
 
 	for (int i = 0; i < spheres.size(); ++i) {
-		if (spheres[i]->intersect_ray(*this)) 
+		if (spheres[i]->IntersectRay(*this)) 
 			hit_index = i;
 	}
 
 	return hit_index;
 }
 
-vector3 ray::get_origin() const {
+Vector3 Ray::GetOrigin() const {
 	return m_Origin;
 }
 
-vector3 ray::get_direction() const {
+Vector3 Ray::GetDirection() const {
 	return m_Direction;
 }
 
-vector3 ray::get_intersection() const {
-	return m_Origin + m_Direction * Distance;
+Vector3 Ray::GetIntersectionPoint() const {
+	return m_Origin + m_Direction * m_Distance;
+}
+
+float Ray::GetDistance() const {
+	return m_Distance;
+}
+
+Ray& Ray::SetDistance(const float& distance) {
+	m_Distance = distance;
+	return *this;
 }

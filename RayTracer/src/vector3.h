@@ -1,61 +1,87 @@
 #pragma once
 
-struct vector3
+struct Vector3
 {
-	vector3();
-	vector3(float a);
-	vector3(float a, float b, float c);
-	~vector3();
+	Vector3();
+	explicit Vector3(float a);
+	Vector3(float a, float b, float c);
 
-	float x, y, z;
+	float x;
+	float y;
+	float z;
 
-	vector3 operator- () const;
-	vector3 operator- (const vector3& other) const;
-	vector3& operator-= (const vector3& other);
-	vector3& operator-= (const float& scalar);
+	Vector3 operator- () const;
+	Vector3& operator-= (const Vector3& other);
+	Vector3& operator-= (const float& scalar);
 
-	vector3& operator+= (const float& scalar);
-	vector3 operator+ (const vector3& other) const;
-	vector3& operator+= (const vector3& other);
+	Vector3& operator+= (const Vector3& other);
+	Vector3& operator+= (const float& scalar);
 
-	vector3 operator* (const vector3& other) const;
-	vector3& operator*= (const vector3& other);
-	vector3& operator*= (const float& scalar);
+	Vector3& operator*= (const Vector3& other);
+	Vector3& operator*= (const float& scalar);
 
-	vector3 operator/ (const vector3& other) const;
-	vector3& operator/= (const vector3& other);
-	vector3& operator/= (const float& scalar);
-
-	bool operator== (const vector3& other) const;
-	bool operator!= (const vector3& other) const;
+	Vector3& operator/= (const Vector3& other);
+	Vector3& operator/= (const float& scalar);
 
 	float operator[] (int index) const;
 
-	static float clamp(const float& value, const float& minVal, const float& maxVal);
-	void clamp(const float& minVal, const float& maxVal);
-	void clamp(const vector3& minVal, const vector3& maxVal);
+	static float Clamp(const float& value, const float& minVal, const float& maxVal);
+	void Clamp(const float& minVal, const float& maxVal);
+	void Clamp(const Vector3& minVal, const Vector3& maxVal);
 
-	float dot(const vector3& other) const;
-	float angle_between(const vector3& other) const;
-	vector3 cross(const vector3& other) const;
+	float Dot(const Vector3& other) const;
+	float AngleBetween(const Vector3& other) const;
+	Vector3 Cross(const Vector3& other) const;
 
-	float length() const;
-	float squared_length() const;
-	vector3& normalize();
+	float Length() const;
+	float SquaredLength() const;
+	Vector3& Normalize();
 };
 
-inline vector3 operator* (const float& scalar, const vector3& vec) {
-	return vector3(scalar * vec.x, scalar * vec.y, scalar * vec.z);
+inline Vector3 operator- (const Vector3& first, const Vector3& second) {
+	return Vector3(first.x - second.x, first.y - second.y, first.z - second.z);
 }
 
-inline vector3 operator+ (const float& scalar, const vector3& vec) {
-	return vector3(vec.x + scalar, vec.y + scalar, vec.z + scalar);
+inline Vector3 operator- (const float& scalar, const Vector3& vec) {
+	return Vector3(vec.x - scalar, vec.y - scalar, vec.z - scalar);
 }
 
-inline vector3 operator/ (const float& scalar, const vector3& vec) {
-	return vector3(vec.x / scalar, vec.y / scalar, vec.z / scalar);
+inline Vector3 operator- (const Vector3& vec, const float& scalar) {
+	return Vector3(vec.x - scalar, vec.y - scalar, vec.z - scalar);
 }
 
-inline vector3 operator- (const float& scalar, const vector3& vec) {
-	return vector3(vec.x - scalar, vec.y - scalar, vec.z - scalar);
+inline Vector3 operator+ (const Vector3& first, const Vector3& second) {
+	return Vector3(first.x + second.x, first.y + second.y, first.z + second.z);
+}
+
+inline Vector3 operator+ (const float& scalar, const Vector3& vec) {
+	return Vector3(vec.x + scalar, vec.y + scalar, vec.z + scalar);
+}
+
+inline Vector3 operator+ (const Vector3& vec, const float& scalar) {
+	return Vector3(vec.x + scalar, vec.y + scalar, vec.z + scalar);
+}
+
+inline Vector3 operator* (const Vector3& first, const Vector3& second) {
+	return Vector3(first.x * second.x, first.y * second.y, first.z * second.z);
+}
+
+inline Vector3 operator* (const float& scalar, const Vector3& vec) {
+	return Vector3(scalar * vec.x, scalar * vec.y, scalar * vec.z);
+}
+
+inline Vector3 operator* (const Vector3& vec, const float& scalar) {
+	return Vector3(scalar * vec.x, scalar * vec.y, scalar * vec.z);
+}
+
+inline Vector3 operator/ (const Vector3& first, const Vector3& second) {
+	return Vector3(first.x / second.x, first.y / second.y, first.z / second.z);
+}
+
+inline Vector3 operator/ (const float& scalar, const Vector3& vec) {
+	return Vector3(vec.x / scalar, vec.y / scalar, vec.z / scalar);
+}
+
+inline Vector3 operator/ (const Vector3& vec, const float& scalar) {
+	return Vector3(vec.x / scalar, vec.y / scalar, vec.z / scalar);
 }

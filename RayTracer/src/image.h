@@ -1,15 +1,20 @@
 #pragma once
 #include "vector3.h"
 
-class image
+class Image
 {
 public:
-	image(vector3 center);
+	explicit Image(const Vector3& center);
 
-	vector3 pixel_location(const float& u, const float& v) const;
+	Vector3 GetPixelLocation(const float& u, const float& v) const;
 
 private:
-	image();
+	Image();
 
-	vector3 m_Center, m_TopRight, m_TopLeft, m_BottomRight, m_TRTL, m_TRBR;
+	Vector3 m_Center;
+	Vector3 m_TopRight;
+	Vector3 m_TopLeft;
+	Vector3 m_BottomRight;
+	Vector3 m_TRTL;
+	Vector3 m_TRBR;
 };

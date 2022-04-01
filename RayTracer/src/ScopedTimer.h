@@ -3,11 +3,11 @@
 
 struct ScopedTimer
 {
-	ScopedTimer(const char*);
+	explicit ScopedTimer(const char* name);
 	~ScopedTimer();
 
 private:
-	void Stop();
+	void Stop() const;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
 	const char* m_Name;
 };

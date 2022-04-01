@@ -1,20 +1,20 @@
 #include "pch.h"
 #include "light.h"
 
-light::light(vector3 position, vector3 color, float intensity)
+Light::Light(const Vector3& position, const Vector3& color, const float& intensity)
 	: m_Position(position), m_Color(color), m_Intensity(intensity)
 {
 
 }
 
-float light::get_intensity() const {
+float Light::GetIntensity() const {
 	return m_Intensity;
 }
 
-vector3 light::get_position() const {
+Vector3 Light::GetPosition() const {
 	return m_Position;
 }
 
-vector3 light::get_color() const {
+Vector3 Light::GetColor() const {
 	return m_Color;
 }

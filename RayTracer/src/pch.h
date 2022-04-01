@@ -8,6 +8,7 @@
 #include <chrono>
 #include <memory>
 #include <functional>
+#include <numbers>
 
 #include <array>
 #include <vector>
@@ -18,6 +19,7 @@
 #include <unordered_map>
 #include <set>
 #include <unordered_set>
+#include <span>
 
 #include <future>
 #include <mutex>

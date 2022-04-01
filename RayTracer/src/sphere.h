@@ -1,23 +1,22 @@
 #pragma once
 #include "ray.h"
 
-class ray;
+class Ray;
 
-class sphere
+class Sphere
 {
 public:
-	sphere(vector3 center, float radius);
+	Sphere(const Vector3& center, const float& radius);
 
-	bool intersect_ray(ray& r) const;
-	vector3 get_normal(const vector3& intersection_point) const;
-
+	bool IntersectRay(Ray& r) const;
+	Vector3 GetNormal(const Vector3& intersection_point) const;
 
 	const float Epsilon = .0001f;
 
 private:
-	sphere();
+	Sphere();
 
-	vector3 m_Center;
+	Vector3 m_Center;
 	float m_Radius;
 };
 

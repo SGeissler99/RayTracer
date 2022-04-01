@@ -1,20 +1,16 @@
 #include "pch.h"
 #include "camera.h"
 
-camera::camera(const vector3& position, const vector3& direction, const float& fov)
+Camera::Camera(const Vector3& position, const Vector3& direction, const float& fov)
 	: m_Position(position), m_Direction(direction), m_FOV(fov)
 {
 
 }
 
-camera::~camera() {
-
-}
-
-vector3 camera::get_screen_center() const {
+Vector3 Camera::GetScreenCenter() const {
 	return m_Position + m_FOV * m_Direction;
 }
 
-vector3 camera::get_position() const {
+Vector3 Camera::GetPosition() const {
 	return m_Position;
 }

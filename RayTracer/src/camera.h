@@ -1,20 +1,19 @@
 #pragma once
 #include "vector3.h"
 
-class camera
+class Camera
 {
 public:
-	camera(const vector3&, const vector3&, const float&);
-	
-	~camera();
+	Camera(const Vector3& position, const Vector3& direction, const float& fov);
 
-	vector3 get_screen_center() const;
-	vector3 get_position() const;
+	Vector3 GetScreenCenter() const;
+	Vector3 GetPosition() const;
 
 private:
-	camera();
+	Camera();
 
-	vector3 m_Position, m_Direction;
+	Vector3 m_Position;
+	Vector3 m_Direction;
 	float m_FOV;
 };
 
