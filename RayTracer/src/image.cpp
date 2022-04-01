@@ -8,8 +8,8 @@ image::image(vector3 center)
 	m_TopLeft = center + vector3(1.f, -1.f, 0.f);
 	m_BottomRight = center + vector3(-1.f, 1.f, 0.f);
 
-	m_TRTL = m_TopRight - m_TopLeft;
-	m_TRBR = m_TopRight - m_BottomRight;
+	m_TRTL = m_TopLeft - m_TopRight;
+	m_TRBR = m_BottomRight - m_TopRight;
 }
 
 vector3 image::pixel_location(const float& u, const float& v) const {

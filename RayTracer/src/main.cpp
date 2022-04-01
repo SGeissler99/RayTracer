@@ -58,14 +58,16 @@ vector3 trace(const ray& r, const std::vector<sphere*>& spheres, const std::vect
 
 
 int main() {
-	camera cam(vector3(0, 0, 0), vector3(0, 0, 1), 1.f);
+	camera cam(vector3(0, 0, 0), vector3(0, 0, 1), 1);
 	image img(cam.get_screen_center());
 
-	sphere s1 = sphere(vector3(0.f, 0.f, 10.f), 2.f);
-	light l1 = light(vector3(-3.f, 0.f, 10.f), vector3(1.f), 1.f);
+	sphere s1 = sphere(vector3(-3, 3, 14), 2);
+	sphere s2 = sphere(vector3(3, 3, 11), 3);
+	light l1 = light(vector3(-4, -4, 15), vector3(1), 5);
+	light l2 = light(vector3(4, -4, 15), vector3(1), 5);
 
-	std::vector<sphere*> spheres = { &s1 };
-	std::vector<light*> lights = { &l1 };
+	std::vector<sphere*> spheres = { &s1, &s2 };
+	std::vector<light*> lights = { &l1, &l2 };
 
 	int ray_depth = 3;
 
@@ -74,9 +76,17 @@ int main() {
 		for (int x = 0; x < IMG_WIDTH; ++x) {
 			for (int y = 0; y < IMG_HEIGHT; ++y) {
 				vector3 pixel_color(0.f);
-				ray r(cam.get_position(), (img.pixel_location(x, y) - cam.get_position()).normalize());
 
-				pixel_color = trace(r, spheres, lights, r.nearest_intersection(spheres), ray_depth);
+				for (int sample = 0; sample < AA_LEVEL; ++sample) {
+					float u = ((float)x + RandInRange(1)) / IMG_WIDTH;
+					float v = ((float)y + RandInRange(1)) / IMG_HEIGHT;
+
+					ray r(cam.get_position(), (img.pixel_location(u, v) - cam.get_position()).normalize());
+
+					pixel_color += trace(r, spheres, lights, r.nearest_intersection(spheres), ray_depth);
+				}
+
+				pixel_color /= AA_LEVEL;
 			}
 		}
 	}
