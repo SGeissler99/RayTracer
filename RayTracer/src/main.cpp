@@ -8,8 +8,8 @@
 #include "sphere.h"
 #include "light.h"
 
-constexpr int IMG_WIDTH = 800;
-constexpr int IMG_HEIGHT = 800;
+constexpr size_t IMG_WIDTH = 800;
+constexpr size_t IMG_HEIGHT = 800;
 constexpr int AA_LEVEL = 2;
 constexpr float VACUUM_REFRACTION = 1.0f;
 constexpr float PI = std::numbers::pi_v<float>;
@@ -137,11 +137,12 @@ Vector3 Trace(const Ray& r, std::span<Sphere const> spheres, std::span<Light con
 int main() {
 	Camera cam(Vector3(0, 0, 0), Vector3(0, 0, 1), 1);
 	Image img(cam.GetScreenCenter());
+	std::vector<Vector3> outputImage(IMG_WIDTH * IMG_HEIGHT);
 
 	const std::array<Sphere, 2> spheres = 
 	{ 
-		Sphere(Vector3(-3, 3, 14), 2, 0, 0, 0),
-		Sphere(Vector3(3, 3, 11), 3, 0, 0, 0) 
+		Sphere(Vector3(-3, 3, 14), Vector3(1, 0, 0), 2, 0, 0, 0),
+		Sphere(Vector3(3, 3, 11), Vector3(0, 1, 0), 3, 0, 0, 0) 
 	};
 
 	const std::array<Light, 2> lights = 
@@ -152,8 +153,10 @@ int main() {
 
 	int rayDepth = 3;
 
-	for (int x = 0; x < IMG_WIDTH; ++x) {
-		for (int y = 0; y < IMG_HEIGHT; ++y) {
+	for (int y = 0; y < IMG_HEIGHT; ++y) 
+	{
+		for (int x = 0; x < IMG_WIDTH; ++x)
+		{
 			Vector3 pixelColor;
 
 			for (int sample = 0; sample < AA_LEVEL; ++sample) {
@@ -165,9 +168,20 @@ int main() {
 				pixelColor += Trace(r, spheres, lights, r.GetNearestIntersection(spheres), rayDepth);
 			}
 
-			Vector3 finalColor = vectormath::Clamp(pixelColor / AA_LEVEL, 0.0f, 1.0f);
+			Vector3 clamped = vectormath::Clamp(pixelColor / AA_LEVEL, 0.0f, 1.0f);
+			outputImage[x + y * IMG_WIDTH] = clamped;
 		}
 	}
-	
+
+	std::ofstream outputStream("./untitled.ppm", std::ios::out | std::ios::binary);
+	outputStream << "P6\n" << IMG_WIDTH << " " << IMG_HEIGHT << "\n255\n";
+
+	for (int i = 0; i < IMG_WIDTH * IMG_HEIGHT; ++i) {
+		outputStream << (unsigned char)(min(float(1), outputImage[i].x) * 255)
+					 << (unsigned char)(min(float(1), outputImage[i].y) * 255)
+					 << (unsigned char)(min(float(1), outputImage[i].z) * 255);
+	}
+
+	outputStream.close();
 	std::cin.get();
 }

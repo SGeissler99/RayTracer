@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "sphere.h"
 
-Sphere::Sphere(Vector3 center, float radius, float specular, float reflective, float refractive)
-	: m_Center(center), m_Radius(radius), m_Material({ specular, reflective, 1 - specular, refractive })
+Sphere::Sphere(Vector3 center, Vector3 color, float radius, float specular, float reflective, float refractive)
+	: m_Center(center), m_Color(color), m_Radius(radius), m_Material({ specular, reflective, 1 - specular, refractive })
 {
 }
 

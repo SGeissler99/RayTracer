@@ -6,7 +6,7 @@ class Ray;
 class Sphere
 {
 public:
-	Sphere(Vector3 center, float radius, float specular, float reflective, float refractive);
+	Sphere(Vector3 center, Vector3 color, float radius, float specular, float reflective, float refractive);
 
 	bool IntersectRay(Ray& r) const;
 	Vector3 GetNormal(Vector3 intersection_point) const;
