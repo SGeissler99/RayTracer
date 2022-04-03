@@ -4,7 +4,7 @@
 class Light
 {
 public:
-	Light(const Vector3& position, const Vector3& color, const float& intensity);
+	Light(Vector3 position, Vector3 color, float intensity);
 
 	float GetIntensity() const;
 	Vector3 GetPosition() const;

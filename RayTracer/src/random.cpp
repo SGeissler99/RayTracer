@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "random.h"
 
-static unsigned int m_Seed = 0x12345678;
+static unsigned int s_Seed = 0x12345678;
 
 unsigned int RandomInt() {
-	m_Seed ^= m_Seed << 13;
-	m_Seed ^= m_Seed >> 17;
-	m_Seed ^= m_Seed << 5;
-	return m_Seed;
+	s_Seed ^= s_Seed << 13;
+	s_Seed ^= s_Seed >> 17;
+	s_Seed ^= s_Seed << 5;
+	return s_Seed;
 }
 
 unsigned int RandomInt(unsigned int& seed) {

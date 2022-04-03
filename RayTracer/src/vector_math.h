@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "vector3.h"
 
-namespace vector_math {
+namespace vectormath {
 	Vector3 Clamp(const Vector3& vec, const float& minVal, const float& maxVal)
 	{
 		return Vector3(
@@ -33,7 +33,7 @@ namespace vector_math {
 	}
 
 	Vector3 Reflect(const Vector3& incoming, const Vector3& normal) {		
-		return incoming - 2.f * normal * normal.Dot(incoming);
+		return incoming - 2.0f * normal * normal.Dot(incoming);
 	}
 
 	Vector3 Normalized(const Vector3& vec) {

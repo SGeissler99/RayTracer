@@ -2,16 +2,16 @@
 #include "ray.h"
 #include <limits>
 
-Ray::Ray(const Vector3& origin, const Vector3& direction) 
+Ray::Ray(Vector3 origin, Vector3 direction) 
 	: m_Origin(origin), m_Direction(direction)
 {
 }
 
-int Ray::GetNearestIntersection(std::span<Sphere* const> spheres)  {
+int Ray::GetNearestIntersection(std::span<Sphere const> spheres)  {
 	int hit_index = -1;
 
 	for (int i = 0; i < spheres.size(); ++i) {
-		if (spheres[i]->IntersectRay(*this)) 
+		if (spheres[i].IntersectRay(*this)) 
 			hit_index = i;
 	}
 
@@ -34,7 +34,7 @@ float Ray::GetDistance() const {
 	return m_Distance;
 }
 
-Ray& Ray::SetDistance(const float& distance) {
+Ray& Ray::SetDistance(float distance) {
 	m_Distance = distance;
 	return *this;
 }

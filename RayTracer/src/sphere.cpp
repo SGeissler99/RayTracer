@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "sphere.h"
 
-Sphere::Sphere(const Vector3& center, const float& radius) 
-	: m_Center(center), m_Radius(radius)
+Sphere::Sphere(Vector3 center, float radius, float specular, float reflective, float refractive)
+	: m_Center(center), m_Radius(radius), m_Material({ specular, reflective, 1 - specular, refractive })
 {
 }
 
@@ -26,6 +26,34 @@ bool Sphere::IntersectRay(Ray& r) const {
 	return false;
 }
 
-Vector3 Sphere::GetNormal(const Vector3& intersection_point) const {
+Vector3 Sphere::GetNormal(Vector3 intersection_point) const {
 	return (intersection_point - m_Center).Normalize();
+}
+
+Vector3 Sphere::GetColor() const {
+	return m_Color;
+}
+
+bool Sphere::IsPerfectMirror() const {
+	return m_Material.Reflective > 0 && m_Material.Refractive == 0 && m_Material.Specular > 0;
+}
+
+bool Sphere::IsDiElectric() const {
+	return m_Material.Reflective > 0 && m_Material.Refractive >= 1;
+}
+
+float Sphere::GetSpecular() const {
+	return m_Material.Specular;
+}
+
+float Sphere::GetReflective() const {
+	return m_Material.Reflective;
+}
+
+float Sphere::GetDiffuse() const {
+	return m_Material.Diffuse;
+}
+
+float Sphere::GetRefractive() const {
+	return m_Material.Refractive;
 }

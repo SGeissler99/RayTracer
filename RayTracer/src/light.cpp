@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "light.h"
 
-Light::Light(const Vector3& position, const Vector3& color, const float& intensity)
+Light::Light(Vector3 position, Vector3 color, float intensity)
 	: m_Position(position), m_Color(color), m_Intensity(intensity)
 {
 

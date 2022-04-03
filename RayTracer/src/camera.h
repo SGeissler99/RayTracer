@@ -4,7 +4,7 @@
 class Camera
 {
 public:
-	Camera(const Vector3& position, const Vector3& direction, const float& fov);
+	Camera(Vector3 position, Vector3 direction, float fov);
 
 	Vector3 GetScreenCenter() const;
 	Vector3 GetPosition() const;
