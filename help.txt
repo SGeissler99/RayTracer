@@ -156,6 +156,16 @@
 // std::string_view lastName(name + 8, 8); -> "Geissler"
 // a string_view does not cause any allocations
 
+//void* operator new (size_t size) {
+//	std::cout << "Allocated " << size << " bytes of memory\n";
+//	return malloc(size);
+//}
+
+//void operator delete (void* memory) {
+//	std::cout << "Freed " << size << " bytes of memory\n";
+//	free(memory);
+//}
+
 int main() {
 	std::cin.get();
 }
