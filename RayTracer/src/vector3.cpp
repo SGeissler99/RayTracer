@@ -138,3 +138,8 @@ Vector3& Vector3::Normalize() {
 	*this /= Length();
 	return *this;
 }
+
+std::ostream& operator<<(std::ostream& stream, const Vector3& other) {
+	stream << "(" << other.x << ", " << other.y << ", " << other.z << ")";
+	return stream;
+}

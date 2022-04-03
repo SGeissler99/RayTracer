@@ -85,3 +85,5 @@ inline Vector3 operator/ (const float& scalar, const Vector3& vec) {
 inline Vector3 operator/ (const Vector3& vec, const float& scalar) {
 	return Vector3(vec.x / scalar, vec.y / scalar, vec.z / scalar);
 }
+
+std::ostream& operator<<(std::ostream& stream, const Vector3& other);
